@@ -548,6 +548,16 @@
         else $('#x-reg-users').hide('blind', {direction:'vertical'}, 500);
       });
 
+      $("input:radio[name=ad_langs]").click(function() {
+        var uval = $('input:radio[name=ad_langs]:checked').val();
+        if(uval == '0') {
+          if($('#custom-langs').is(':visible')) $('#custom-langs').hide('blind', {direction:'vertical'}, 500);
+        }
+        else {
+          if($('#custom-langs').is(':hidden')) $('#custom-langs').show('blind', {direction:'vertical'}, 500);
+        }
+      });
+
       $('#x_ad_users').click(function() {
         if($('#x_ad_users').is(':checked')) $('#x-view-users').show('blind', {direction:'vertical'}, 500);
         else $('#x-view-users').hide('blind', {direction:'vertical'}, 500);

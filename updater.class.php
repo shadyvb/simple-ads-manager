@@ -142,6 +142,8 @@ if(!class_exists('SamUpdater')) {
                   ad_users tinyint(1) DEFAULT 0,
                   ad_users_unreg tinyint(1) DEFAULT 0,
                   ad_users_reg tinyint(1) DEFAULT 0,
+                  ad_langs tinyint(1) DEFAULT 0,
+                  ad_lang_custom varchar(2) DEFAULT NULL,
                   x_ad_users tinyint(1) DEFAULT NULL,
                   x_view_users varchar(255) DEFAULT NULL,
                   ad_users_adv tinyint(1) DEFAULT 0,
@@ -386,6 +388,14 @@ if(!class_exists('SamUpdater')) {
                     ADD COLUMN adv_mail varchar(50) DEFAULT NULL;";
           $dbResult = $wpdb->query($aSql);
         }
+
+        /*
+        # db upgrade code for WPML compatibility
+        $aSql = "ALTER TABLE $aTable
+                ADD COLUMN ad_langs tinyint(1) DEFAULT 0,
+                ADD COLUMN ad_lang_custom varchar(2) DEFAULT NULL;";
+        $dbResult = $wpdb->query($aSql);
+        /**/
 
         if($el) {
           self::errorWrite($eTable, $aTable, $aSql, $dbResult);

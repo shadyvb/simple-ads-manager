@@ -226,6 +226,12 @@ if(!class_exists('SamAdPlace')) {
       $wcxc = '';
       $wcxa = '';
       $wcxt = '';
+      $wcl = '';
+
+      if(function_exists('icl_get_languages')) {
+        $lang_code = ICL_LANGUAGE_CODE;
+        $wcl = "(IF($aTable.ad_langs = 0, TRUE, ($aTable.ad_lang_custom = '$lang_code'))) AND";
+      }
 
       if(is_user_logged_in()) {
         get_currentuserinfo();
@@ -343,7 +349,8 @@ if(!class_exists('SamAdPlace')) {
       if(empty($wcc)) $wcc = " AND ($aTable.ad_cats = 0)";
       if(empty($wca)) $wca = " AND ($aTable.ad_authors = 0)";
       
-      $whereClause  = "$wcu (($aTable.view_type = 1)";
+      $whereClause  = "$wcl ";
+      $whereClause .= "$wcu (($aTable.view_type = 1)";
       $whereClause .= " OR ($aTable.view_type = 0 AND ($aTable.view_pages+0 & $viewPages))";
       $whereClause .= "$wci)";
       $whereClause .= "$wcc $wca $wct $wcx $wcxc $wcxa $wcxt";

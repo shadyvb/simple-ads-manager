@@ -574,6 +574,8 @@ if(!class_exists('SamPlaceEdit')) {
               'ad_users_unreg' => (isset($_POST['ad_users_unreg']) ? $_POST['ad_users_unreg'] : 0),
               //FIXED 'ad_users_reg' => $_POST['ad_users_reg'],
               'ad_users_reg' => (isset($_POST['ad_users_reg']) ? $_POST['ad_users_reg'] : 0),
+              'ad_langs' => $_POST['ad_langs'],
+              'ad_lang_custom' => (isset($_POST['ad_lang_custom']) ? $_POST['ad_lang_custom'] : null),
               //FIXED 'x_ad_users' => $_POST['x_ad_users'],
               'x_ad_users' => (isset($_POST['x_ad_users']) ? $_POST['x_ad_users'] : 0),
               'x_view_users' => $this->removeTrailingComma( stripcslashes($_POST['x_view_users'])),
@@ -669,6 +671,8 @@ if(!class_exists('SamPlaceEdit')) {
                       count_clicks,
                       ad_users,
                       ad_users_unreg,
+                      ad_langs,
+                      ad_lang_custom,
                       ad_users_reg,
                       x_ad_users,
                       x_view_users,
@@ -743,6 +747,8 @@ if(!class_exists('SamPlaceEdit')) {
               'ad_users' => 0,
               'ad_users_unreg' => 0,
               'ad_users_reg' => 0,
+              'ad_langs' => 0,
+              'ad_lang_custom' => null,
               'x_ad_users' => 0,
               'x_view_users' => '',
               'ad_users_adv' => 0,
@@ -1125,6 +1131,32 @@ if(!class_exists('SamPlaceEdit')) {
                     </div>
                   </div>
                 </div>
+                <? if(function_exists('icl_get_languages')): ?>
+                <div id="limitslang" class="postbox">
+                  <div class="handlediv" title="<?php _e('Click to toggle', SAM_DOMAIN); ?>"><br/></div>
+                  <h3 class="hndle"><span><?php _e('Languages', SAM_DOMAIN);?></span></h3>
+                  <div class="inside">
+                    <p><strong><?php echo __('Show this ad in', SAM_DOMAIN).':'; ?></strong></p>
+                    <p>
+                      <input type="radio" name="ad_langs" id="ad_langs_0" value="0" <?php checked(0, $row['ad_langs']); ?> />
+                      <label for="ad_langs_0"><strong><?php _e('all languages', SAM_DOMAIN); ?></strong></label>
+                    </p>
+                    <div class="clear-line"></div>
+                    <p>
+                      <input type="radio" name="ad_langs" id="ad_langs_1" value="1" <?php checked(1, $row['ad_langs']); ?> />
+                      <label for="ad_langs_1"><strong><?php _e('these langs', SAM_DOMAIN); ?></strong></label>
+                    </p>
+                    <div id="custom-langs" class="radio-content" style="<?php if((int)$row['ad_langs'] != 1) echo 'display: none;'; ?>">
+                      <? foreach(icl_get_languages('skip_missing=0&orderby=code') as $lang): ?>
+                      <p>
+                        <input type="radio" name="ad_lang_custom" id="ad_lang_custom_<?= $lang['language_code'] ?>" value="<?= $lang['language_code'] ?>" <?php checked($lang['language_code'], $row['ad_lang_custom']); ?> />
+                        <label for="ad_lang_custom_<?= $lang['language_code'] ?>"><strong><?php echo $lang['translated_name'] ?></strong></label>
+                      </p>
+                      <? endforeach ?>
+                    </div>
+                  </div>
+                </div>
+                <? endif ?>
                 <div id="limitsdiv" class="postbox ">
                   <div class="handlediv" title="<?php _e('Click to toggle', SAM_DOMAIN); ?>"><br/></div>
                   <h3 class="hndle"><span><?php _e('Extended restrictions of advertisements showing', SAM_DOMAIN);?></span></h3>
