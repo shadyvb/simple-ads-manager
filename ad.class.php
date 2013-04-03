@@ -133,6 +133,9 @@ if(!class_exists('SamAdPlace')) {
     private $crawler = false;
     public $ad = '';
     
+    static $noDuplicates = true;
+    static $onPage = array(0);
+    
     public function __construct($args = null, $useCodes = false, $crawler = false) {
       $this->args = $args;
       $this->useCodes = $useCodes;
@@ -362,6 +365,9 @@ if(!class_exists('SamAdPlace')) {
       $whereClauseW = " AND IF($aTable.ad_weight > 0, ($aTable.ad_weight_hits*10/($aTable.ad_weight*$cycle)) < 1, FALSE)";
       $whereClause2W = "AND ($aTable.ad_weight > 0)";
       
+      $strDups = implode(',', self::$onPage);
+      $whereClauseW .= " AND $aTable.id NOT IN ($strDups)";
+      
       if(!empty($args['id'])) $pId = "$pTable.id = {$args['id']}";
       else $pId = "$pTable.name = '{$args['name']}'";
       
@@ -472,6 +478,8 @@ if(!class_exists('SamAdPlace')) {
           if($el) self::errorWrite($eTable, $aTable, $aSql, $ad, $wpdb->last_error);
           return '';
         }
+        
+        self::$onPage[] = $ad['id'];
 
         if($ad['code_mode'] == 0) {
           if((int)$ad['ad_swf']) {
