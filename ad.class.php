@@ -99,7 +99,8 @@ if(!class_exists('SamAd')) {
           if(!empty($ad['ad_target'])) {
             //$aStart = ((in_array((integer)$ad['ad_no'], array(2,3))) ? '<noindex>' : '')."<a href='{$ad['ad_target']}' target='_blank' ".((in_array((integer)$ad['ad_no'], array(1,3))) ? " rel='nofollow'" : '').">";
             //$aEnd = "</a>".(in_array((integer)$ad['ad_no'], array(2,3))) ? '</noindex>' : '';
-            $aStart = "<a $outId href='{$ad['ad_target']}' target='$target' ".">";
+            $href = apply_filters('sam_ad_target', $ad['ad_target']);
+            $aStart = "<a $outId href='{$href}' target='$target' ".">";
             $aEnd = "</a>";
           }
           if(!empty($ad['ad_img'])) $iTag = "<img src='{$ad['ad_img']}' ".((!empty($ad['ad_alt'])) ? " alt='{$ad['ad_alt']}' " : '')." />";
@@ -425,7 +426,8 @@ if(!class_exists('SamAdPlace')) {
           if(!empty($settings['adDisplay'])) $target = '_'.$settings['adDisplay'];
           else $target = '_blank';  
           if(!empty($place['patch_link'])) {
-            $aStart = "<a href='{$place['patch_link']}' target='$target'>";
+            $patch_link = apply_filters('sam_ad_target', $place['patch_link']);
+            $aStart = "<a href='{$patch_link}' target='$target'>";
             $aEnd = "</a>";
           }
           if(!empty($place['patch_img'])) $iTag = "<img src='{$place['patch_img']}' />";
@@ -505,7 +507,8 @@ if(!class_exists('SamAdPlace')) {
             if(!empty($ad['ad_target'])) {
               //$aStart = ((in_array((integer)$ad['ad_no'], array(2,3))) ? '<noindex>' : '')."<a href='{$ad['ad_target']}' target='$target' ".((in_array((integer)$ad['ad_no'], array(1,3))) ? " rel='nofollow'" : '').">";
               //$aEnd = "</a>".(in_array((integer)$ad['ad_no'], array(2,3))) ? '</noindex>' : '';
-              $aStart = "<a $outId href='{$ad['ad_target']}' target='$target' ".">";
+              $href = apply_filters('sam_ad_target', $ad['ad_target']);
+              $aStart = "<a $outId href='{$href}' target='$target' ".">";
               $aEnd = "</a>";
             }
             if(!empty($ad['ad_img'])) $iTag = "<img src='{$ad['ad_img']}' ".((!empty($ad['ad_alt'])) ? " alt='{$ad['ad_alt']}' " : " alt='' ")." />";
