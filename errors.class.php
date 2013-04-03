@@ -44,7 +44,7 @@
       $errors = $this->getErrors($rows, SAM_AD_IMG);
       if($errors['dir']) { 
         $dirError = '<p><strong>'.__("Simple Ads Manager Images Folder hasn't been created!", SAM_DOMAIN).'</strong></p>';
-        $dirError .= '<p>'.__("Try to reactivate plugin or create folder manually.", SAM_DOMAIN).'<br/>'.__("Manually creation: Create folder 'sam-images' in 'wp-content/plugins' folder. Don't forget to set folder's permissions to 777.", SAM_DOMAIN).'</p>';
+        $dirError .= '<p>'.__("Try to reactivate plugin or create folder manually.", SAM_DOMAIN).'<br/>'.__("Manually creation: Create folder 'sam-images' in 'wp-content' folder. Don't forget to set folder's permissions to 777.", SAM_DOMAIN).'</p>';
       }
       
       foreach($errors['tables'] as $key => $value) {

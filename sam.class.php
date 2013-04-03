@@ -44,8 +44,8 @@ if ( !class_exists( 'SimpleAdsManager' ) ) {
       define('SAM_IMG_URL', SAM_URL.'images/');
       define('SAM_DOMAIN', 'simple-ads-manager');
       define('SAM_OPTIONS_NAME', 'samPluginOptions');
-      define('SAM_AD_IMG', WP_PLUGIN_DIR.'/sam-images/');
-      define('SAM_AD_URL', plugins_url('/sam-images/'));
+      define('SAM_AD_IMG', WP_CONTENT_DIR .'/sam-images/');
+      define('SAM_AD_URL', WP_CONTENT_URL . ('/sam-images/'));
       
       define('SAM_IS_HOME', 1);
       define('SAM_IS_SINGULAR', 2);
